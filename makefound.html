@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title> Document </title>
+        
+    </head>
+    <body>
+
+    </body>
+    
+    <nav class="green"><a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> TAP </nav>
+
+  <ul id="slide-out" class="sidenav">
+    <li><div class="user-view">
+      <div class="background">
+        
+      </div>
+    </div></li>
+    <li><a class="waves-effect" href="index.html">MAIN</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="waves-effect" href="lost.html">POTERYANO</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="waves-effect" href="found.html">NAYDENO</a></li>
+    <li><div class="divider"></div></li>
+    <a class="submit waves-effect waves-light btn"><i class="material-icons left">cloud</i>SUBMIT objyavlenie</a>
+  </ul>
+  NAZVANYE
+   <input id="inputtitle">
+   OPISANYE
+   <input id="inputdesc">
+   KONTAKT
+   <input id="inputcontact">
+   STATUS
+   <div class="input-field col s12">
+    <select id = "selectt">
+      <option value="" disabled selected>Choose your option</option>
+      <option value="0">POTERYAL</option>
+      <option value="1">NASHEL</option>
+    </select>
+    <label>Materialize Select</label>
+  </div>
+   SOLUTION
+   <button class="baton">OTPRAV RIGHT NOW</button>
+<div class="pusto"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script>
+        var submittitle = document.getElementById("inputtitle");
+        var submitdesc = document.getElementById("inputdesc");
+        var submitcontact = document.getElementById("inputcontact");
+        var submitstatus = document.getElementById("selectt");
+        
+        var baton = document.querySelector(".baton");
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+        });
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+        baton.onclick=function(){
+        $.ajax({
+            url:"http://127.0.0.1:8000/makefound",
+            data:{
+                stitle:submittitle.value,
+                sdesc:submitdesc.value,
+                scontact:submitcontact.value,
+                sstatus:submitstatus.value,
+            },
+            success:function(arg){
+                
+            }
+            })
+        }
+    </script>
+    
+</html>

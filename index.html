@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title> Document </title>
+
+</head>
+
+<body>
+
+</body>
+
+<nav class="green"><a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> TAP </nav>
+
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view">
+            <div class="background">
+
+            </div>
+        </div>
+    </li>
+    <li><a class="waves-effect" href="index.html">MAIN</a></li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li><a class="waves-effect" href="lost.html">ПОТЯРЯНО</a></li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li><a class="waves-effect" href="found.html">НАЙДЕНО</a></li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <a class="submit waves-effect waves-light btn submitbaton" href="makefound.html">SUBMIT<i class="material-icons left">cloud</i></a>
+</ul>
+<input class="inputis" id="inputis">
+
+<div class="pusto"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js">
+
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.sidenav').sidenav();
+    });
+    var submits = document.querySelector(".submits");
+    var inputis = document.querySelector(".inputis");
+    var pusto = document.querySelector(".pusto");
+    inputis.oninput = function() {
+        $.ajax({
+            url: "http://127.0.0.1:8000/searchAll",
+            data: {
+                search: inputis.value
+            },
+            success: function(arg) {
+                //console.log(arg);
+                pusto.innerHTML = "";
+                for (var i = 0; i < arg.length; i++) {
+                    var div_row = document.createElement("div");
+                    pusto.appendChild(div_row);
+                    div_row.classList.add("row");
+
+                    var div_col = document.createElement("div");
+                    div_row.appendChild(div_col);
+                    div_col.classList.add("col", "s12", "m6");
+
+                    var div_card = document.createElement("div");
+                    div_col.appendChild(div_card);
+                    div_card.classList.add("card", "green", "darken-1");
+
+                    var div_card_content = document.createElement("div");
+                    div_card.appendChild(div_card_content);
+                    div_card_content.classList.add("card-content", "white-text");
+
+                    var card_title = document.createElement("span");
+                    div_card_content.appendChild(card_title);
+                    card_title.classList.add("card-content");
+                    card_title.innerHTML = arg[i].title;
+
+                    var card_content_p = document.createElement("p");
+                    div_card_content.appendChild(card_content_p);
+                    card_content_p.innerHTML = arg[i].description;
+
+                    var div_card_action = document.createElement("div");
+                    div_card.appendChild(div_card_action);
+                    div_card_action.classList.add("card-action");
+
+                    var card_action_a = document.createElement("a");
+                    div_card_action.appendChild(card_action_a);
+                    card_action_a.href = "#";
+                    card_action_a.innerHTML = arg[i].contact;
+
+                    /*var card_action_a1 = document.createElement("a");
+                    div_card_action.appendChild(card_action_a1);
+                    card_action_a1.href="#";
+                    card_action_a1.innerHTML="LINK";*/
+                }
+            }
+        })
+    }
+    $.ajax({
+        url: "http://127.0.0.1:8000/getAll",
+
+        success: function(arg) {
+            console.log(arg)
+            for (var i = 0; i < arg.length; i++) {
+                var div_row = document.createElement("div");
+                pusto.appendChild(div_row);
+                div_row.classList.add("row");
+
+                var div_col = document.createElement("div");
+                div_row.appendChild(div_col);
+                div_col.classList.add("col", "s12", "m6");
+
+                var div_card = document.createElement("div");
+                div_col.appendChild(div_card);
+                div_card.classList.add("card", "green", "darken-1");
+
+                var div_card_content = document.createElement("div");
+                div_card.appendChild(div_card_content);
+                div_card_content.classList.add("card-content", "white-text");
+
+                var card_title = document.createElement("span");
+                div_card_content.appendChild(card_title);
+                card_title.classList.add("card-content");
+                card_title.innerHTML = arg[i].title;
+
+                var card_content_p = document.createElement("p");
+                div_card_content.appendChild(card_content_p);
+                card_content_p.innerHTML = arg[i].description;
+
+                var div_card_action = document.createElement("div");
+                div_card.appendChild(div_card_action);
+                div_card_action.classList.add("card-action");
+
+                var card_action_a = document.createElement("a");
+                div_card_action.appendChild(card_action_a);
+                card_action_a.href = "#";
+                card_action_a.innerHTML = arg[i].contact;
+
+                /*var card_action_a1 = document.createElement("a");
+                div_card_action.appendChild(card_action_a1);
+                card_action_a1.href="#";
+                card_action_a1.innerHTML="LINK";*/
+            }
+        }
+
+    });
+
+</script>
+
+</html>
